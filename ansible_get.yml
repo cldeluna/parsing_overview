@@ -35,8 +35,6 @@
     - ansible-network.network-engine
 
   tasks:
-    - name: Get Vault Variables
-      include_vars: ./group_vars/creds.yml
 
     - name: Exceute show vrf command
       ios_command:
