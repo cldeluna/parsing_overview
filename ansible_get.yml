@@ -30,7 +30,9 @@
   vars:
     find_network: '10.99.99.1'
     find_mask:  '32'
+    found_prefix: 'No'
     found_default: 'No'
+
 
   roles:
     - ansible-network.network-engine
@@ -71,15 +73,21 @@
       debug:
         var: cmd_facts
 
-    - name: 1 - Show Total Number of Routes
-      debug:
-        msg: "1. Total Number of Routes: {{ cmd_facts|length }}"
-
-    - name: Set Yes/No for Default Route
+    - name: Set to True if Default Route found
       set_fact:
         found_default: 'Yes'
         when: "({{ item['NETWORK'] }} == find_network and {{ item['MASK'] }} == find_mask)"
       with_items: "{{ cmd_facts }}"
+
+    - name: "Set to True if {{ find_network }}/{{ find_mask }} "
+      set_fact:
+        found_default: 'Yes'
+        when: "({{ item['NETWORK'] }} == find_network and {{ item['MASK'] }} == find_mask)"
+      with_items: "{{ cmd_facts }}"
+
+    - name: 1 - Show Total Number of Routes
+      debug:
+        msg: "1. Total Number of Routes: {{ cmd_facts|length }}"
 
     - name: 2 - Determine if there is a Default Route
       debug:
@@ -87,7 +95,7 @@
 
     - name: "3 - Determine if {{ find_network }}/{{ find_mask }} is in the routing table"
       debug:
-        msg: "3. Is {arguments.prefix} in the routing table:: {{ cmd_facts|length }}"
+        msg: "3. Is {arguments.prefix} in the routing table:: {{ found_prefix }}"
 
 
 #    - name: Append new VRFS to list of VRF names
