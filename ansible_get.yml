@@ -44,27 +44,27 @@
         var: output
         verbosity: 1
 
-    - name: Show the vrf command output with stdout_lines
+    - name: Show the command output with stdout_lines
       debug:
-        msg: "{{ output.results.0.stdout_lines.0 }}"
+        msg: "{{ output.results.0.stdout_lines.0.0 }}"
 
-    - name: Extract the formatted show vrf output from file for correct parsing via TextFSM
+    - name: Extract the semi formatted show command text output for
       set_fact:
-        vrf_content: "{{ output.results.0.stdout_lines.0 }}"
+        showcmd_content: "{{ output.results.0.stdout_lines.0.0 }}"
 
-    - name: Show the vrf_content variable
+    - name: Show the showcmd_content variable
       debug:
-        var: vrf_content
+        var: showcmd_content
 
-    - name: Use Network Engine Role textfsm_parser to Parse VRF Output and store in variable vrf_facts
+    - name: Use Network Engine Role textfsm_parser to Parse Output and store in variable cmd_facts
       textfsm_parser:
         file: './ntc-templates/templates/cisco_ios_show_ip_route.textfsm'
-        content: "{{ vrf_content }}"
-        name: vrf_facts
+        content: "{{ showcmd_content }}"
+        name: cmd_facts
 
-    - name: Show contents of variable vrf_facts
+    - name: Show contents of variable cmd_facts
       debug:
-        var: vrf_facts
+        var: cmd_facts
 
     - name: Show VRF names only
       debug:
