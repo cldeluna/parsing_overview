@@ -46,7 +46,7 @@
 
     - name: Show the command output with stdout_lines
       debug:
-        var: "{{ output.results.0.stdout }}"
+        var: "{{ output.results.0.stdout.0 }}"
 
     - name: Extract the semi formatted show command text output for
       set_fact:
@@ -59,7 +59,7 @@
     - name: Use Network Engine Role textfsm_parser to Parse Output and store in variable cmd_facts
       textfsm_parser:
         file: './ntc-templates/templates/cisco_nxos_show_ip_route.textfsm'
-        content: "{{ showcmd_content | str }}"
+        content: "{{ showcmd_content }}"
         name: cmd_facts
 
     - name: Show contents of variable cmd_facts
