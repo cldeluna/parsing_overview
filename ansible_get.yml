@@ -75,9 +75,8 @@
         msg: "1. Total Number of Routes: {{ cmd_facts|length }}"
 
     - name: 2 - Determine if there is a Default Route
-    - debug:
+      debug:
         msg: "{{ output.results.0.stdout[0] is search('0.0.0.0') | ternary('2. Is there a default route?: Yes', '2. Is there a default route?: No') }}"
-
 
     - name: "3 - Determine if Network {{ find_network }} is in the routing table"
       debug:
