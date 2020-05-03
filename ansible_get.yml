@@ -59,7 +59,7 @@
     - name: Use Network Engine Role textfsm_parser to Parse Output and store in variable cmd_facts
       textfsm_parser:
         file: './ntc-templates/templates/cisco_nxos_show_ip_route.textfsm'
-        content: "{{ showcmd_content }}"
+        content: "{{ showcmd_content[0] }}"
         name: cmd_facts
 
     - name: Show contents of variable cmd_facts
