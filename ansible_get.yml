@@ -53,16 +53,9 @@
       debug:
         msg: "{{ output.results.0.stdout_lines.0 }}"
 
-    # Save show command output in a nicely formatted text file.
-    - name: Generate and Save Device Show Command File(s)
-      template: src=./templates/show-commands-template.j2
-                  dest=./logs/{{ inventory_hostname }}.show-commands.txt
-      with_items:
-        - "{{ output }}"
-
     - name: Extract the formatted show vrf output from file for correct parsing via TextFSM
       set_fact:
-        vrf_content: "{{ lookup('file', './logs/' + inventory_hostname + '.show-commands.txt') }}"
+        vrf_content: "{{ output.results.0.stdout_lines.0 }}"
 
 
     - name: Use Network Engine Role textfsm_parser to Parse VRF Output and store in variable vrf_facts
