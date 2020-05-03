@@ -76,7 +76,7 @@
     - name: Set to True if Default Route found
       set_fact:
         found_default: 'Yes'
-      when: "({{ item['NETWORK'] }} == '0.0.0.0')"
+        when: "({{ item['NETWORK'] }} == '0.0.0.0')"
       with_items: "{{ cmd_facts }}"
 
     - name: "Set to True if {{ find_network }}/{{ find_mask }} "
