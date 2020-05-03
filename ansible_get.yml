@@ -50,7 +50,7 @@
 
     - name: Show the command output with stdout_lines
       debug:
-        var: "{{ output.results.0.stdout }}"
+        var: "{{ output.results.0.stdout[0] }}"
 
     - name: Extract the SEMI FORMATTED show command TEXT output
       set_fact:
