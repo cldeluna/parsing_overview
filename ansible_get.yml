@@ -27,6 +27,9 @@
   gather_facts: False
   connection: network_cli
 
+  vars:
+    find_prefix: '10.99.99.1/32'
+
   roles:
     - ansible-network.network-engine
 
@@ -66,11 +69,19 @@
       debug:
         var: cmd_facts
 
-    - name: Show the number of routes
+    - name: 1 - Show Total Number of Routes
       debug:
         msg: "1. Total Number of Routes: {{ cmd_facts|length }}"
 
-#
+    - name: Determine if there is a Default Route
+      debug:
+        msg: "2. Is there a default route?: {{ cmd_facts|length }}"
+
+    - name: "Determine if {{ find_prefix }} is in the routing table"
+      debug:
+        msg: "3. Is {arguments.prefix} in the routing table:: {{ cmd_facts|length }}"
+
+
 #    - name: Append new VRFS to list of VRF names
 #      set_fact:
 #        vrf_list: "{{ vrf_list }} + ['{{ item['NAME'] }}' ]"
