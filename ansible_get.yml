@@ -83,7 +83,7 @@
       set_fact:
         found_default: 'Yes'
         when: "({{ item['NETWORK'] }} == find_network and {{ item['MASK'] }} == find_mask)"
-        with_items: "{{ cmd_facts }}"
+      with_items: "{{ cmd_facts }}"
 
     - name: 1 - Show Total Number of Routes
       debug:
