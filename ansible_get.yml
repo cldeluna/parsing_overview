@@ -28,7 +28,8 @@
   connection: network_cli
 
   vars:
-    find_prefix: '10.99.99.1/32'
+    find_network: '10.99.99.1'
+    find_mask:  '32'
 
   roles:
     - ansible-network.network-engine
@@ -73,11 +74,13 @@
       debug:
         msg: "1. Total Number of Routes: {{ cmd_facts|length }}"
 
-    - name: Determine if there is a Default Route
+    - name: 2 - Determine if there is a Default Route
       debug:
-        msg: "2. Is there a default route?: {{ cmd_facts|length }}"
+        msg: "2. Is there a default route?: YES"
+        with_items: {{ cmd_facts }}
+        when: "({{ item['NETWORK'] }} == find_network and {{ item['MASK'] }} == find_mask)"
 
-    - name: "Determine if {{ find_prefix }} is in the routing table"
+    - name: "3 - Determine if {{ find_network }}/{{ find_mask }} is in the routing table"
       debug:
         msg: "3. Is {arguments.prefix} in the routing table:: {{ cmd_facts|length }}"
 
