@@ -93,7 +93,7 @@
       debug:
         msg: "2. Is there a default route?: {{ found_default }}"
 
-    - name: "3 - Determine if Prefix is in the routing table"
+    - name: 3 - Determine if Prefix is in the routing table
       debug:
         msg: "3. Is {{arguments.prefix}} in the routing table:: {{ found_prefix }}"
 
