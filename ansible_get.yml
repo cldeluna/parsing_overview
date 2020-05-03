@@ -46,11 +46,11 @@
 
     - name: Show the command output with stdout_lines
       debug:
-        msg: "{{ output.results.0.stdout_lines.0.0 }}"
+        msg: "{{ output.results.0.stdout_lines }}"
 
     - name: Extract the semi formatted show command text output for
       set_fact:
-        showcmd_content: "{{ output.results.0.stdout_lines.0.0 }}"
+        showcmd_content: "{{ output.results.0.stdout_lines }}"
 
     - name: Show the showcmd_content variable
       debug:
