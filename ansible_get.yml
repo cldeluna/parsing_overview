@@ -52,7 +52,7 @@
       set_fact:
         showcmd_content: "{{ output.results.0.stdout[0] }}"
 
-    - name: Show the showcmd_content variable
+    - name: Show the SEMI FORMATTED show command TEXT to be sent to the textfsm_parser module
       debug:
         var: showcmd_content
 
@@ -66,11 +66,10 @@
       debug:
         var: cmd_facts
 
-#    - name: Show VRF names only
-#      debug:
-#        msg: "{{ item['NAME'] }}"
-#      with_items:
-#        - "{{ vrf_facts }}"
+    - name: Show the number of routes
+      debug:
+        msg: "1. Total Number of Routes: {{ cmd_facts|length }}"
+
 #
 #    - name: Append new VRFS to list of VRF names
 #      set_fact:
