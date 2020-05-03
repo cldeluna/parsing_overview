@@ -76,13 +76,14 @@
     - name: Set to True if Default Route found
       set_fact:
         found_default: 'Yes'
+        with_items: cmd_facts
         when: item['NETWORK'] == '0.0.0.0'
-      with_items: "{{ cmd_facts }}"
+
 
     - name: "Set to True if {{ find_network }}/{{ find_mask }} "
       set_fact:
         found_default: 'Yes'
-        when: "({{ item['NETWORK'] }} == find_network & {{ item['MASK'] }} == find_mask)"
+        when: item['NETWORK'] }} == find_network & {{ item['MASK'] }} == find_mask)"
       with_items: "{{ cmd_facts }}"
 
     - name: 1 - Show Total Number of Routes
