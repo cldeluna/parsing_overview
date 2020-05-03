@@ -80,7 +80,7 @@
 
     - name: "3 - Determine if Network {{ find_network }} is in the routing table"
       debug:
-        msg: "{{ output.results.0.stdout[0] is search('10.99.99.1') | ternary('3. Is '+ find_network + 'in the routing table?: Yes', '3. Is '+ find_network + 'in the routing table?: No') }}"
+        msg: "{{ output.results.0.stdout[0] is search('10.99.99.1') | ternary('3. Is '+ find_network + ' in the routing table?: Yes', '3. Is '+ find_network + ' in the routing table?: No') }}"
 
 
 
