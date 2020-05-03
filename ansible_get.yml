@@ -27,20 +27,15 @@
   gather_facts: False
   connection: network_cli
 
-  # Creating the vrf_list variable and seeding it with default
-  vars:
-    vrf_list: ['default']
-
   roles:
     - ansible-network.network-engine
 
   tasks:
-
-    - name: Exceute show vrf command
+    - name: Exceute show ip route command
       ios_command:
         commands: "{{ item }} "
       with_items:
-          - "show vrf"
+          - "show ip route"
       register: output
       ignore_errors: yes
 
