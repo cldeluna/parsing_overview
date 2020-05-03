@@ -23,7 +23,7 @@
 # Vault Password: Cisco123
 ###############################################################################
 
-- hosts: cisco_xe
+- hosts: sbx_nxos
   gather_facts: False
   connection: network_cli
 
@@ -58,7 +58,7 @@
 
     - name: Use Network Engine Role textfsm_parser to Parse Output and store in variable cmd_facts
       textfsm_parser:
-        file: './ntc-templates/templates/cisco_ios_show_ip_route.textfsm'
+        file: './ntc-templates/templates/cisco_nxos_show_ip_route.textfsm'
         content: "{{ showcmd_content }}"
         name: cmd_facts
 
@@ -66,17 +66,17 @@
       debug:
         var: cmd_facts
 
-    - name: Show VRF names only
-      debug:
-        msg: "{{ item['NAME'] }}"
-      with_items:
-        - "{{ vrf_facts }}"
-
-    - name: Append new VRFS to list of VRF names
-      set_fact:
-        vrf_list: "{{ vrf_list }} + ['{{ item['NAME'] }}' ]"
-      with_items:
-        - "{{ vrf_facts }}"
-
-    - name: Show Complete List of VRF Names
-      debug: var=vrf_list
+#    - name: Show VRF names only
+#      debug:
+#        msg: "{{ item['NAME'] }}"
+#      with_items:
+#        - "{{ vrf_facts }}"
+#
+#    - name: Append new VRFS to list of VRF names
+#      set_fact:
+#        vrf_list: "{{ vrf_list }} + ['{{ item['NAME'] }}' ]"
+#      with_items:
+#        - "{{ vrf_facts }}"
+#
+#    - name: Show Complete List of VRF Names
+#      debug: var=vrf_list
