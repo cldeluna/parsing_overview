@@ -30,9 +30,6 @@
   vars:
     find_network: '10.99.99.1'
     find_mask:  '32'
-    found_prefix: 'No'
-    found_default: 'No'
-
 
   roles:
     - ansible-network.network-engine
@@ -73,34 +70,19 @@
       debug:
         var: cmd_facts
 
-    - name: Set to True if Default Route found
-      set_fact:
-        found_default: 'Yes'
-        with_items: cmd_facts
-        when: item['NETWORK'] == '0.0.0.0'
-
-
-    - name: "Set to True if {{ find_network }}/{{ find_mask }} "
-      set_fact:
-        found_default: 'Yes'
-        when: item['NETWORK'] }} == find_network & {{ item['MASK'] }} == find_mask)"
-      with_items: "{{ cmd_facts }}"
-
     - name: 1 - Show Total Number of Routes
       debug:
         msg: "1. Total Number of Routes: {{ cmd_facts|length }}"
 
     - name: 2 - Determine if there is a Default Route
-      debug:
-        msg: "2. Is there a default route?: {{ found_default }}"
-
-    - name: 3 - Determine if Prefix is in the routing table
-      debug:
-        msg: "3. Is {{ find_network }}/{{ find_mask }} in the routing table:: {{ found_prefix }}"
-
-
     - debug:
-        msg: "{{ output.results.0.stdout[0] is search('0.0.0.0') | ternary('Default route was found!', 'No Default Route in Routing Table') }}"
+        msg: "{{ output.results.0.stdout[0] is search('0.0.0.0') | ternary('2. Is there a default route?: Yes', '2. Is there a default route?: No') }}"
+
+
+    - name: "3 - Determine if Network {{ find_network }} is in the routing table"
+      debug:
+        msg: "{{ output.results.0.stdout[0] is search('10.99.99.1') | ternary('3. Is '+ find_network + 'in the routing table?: Yes', '3. Is '+ find_network + 'in the routing table?: No') }}"
+
 
 
 #    - name: Append new VRFS to list of VRF names
