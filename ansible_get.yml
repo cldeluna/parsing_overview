@@ -30,6 +30,7 @@
   vars:
     find_network: '10.99.99.1'
     find_mask:  '32'
+    found_default: 'No"
 
   roles:
     - ansible-network.network-engine
@@ -74,11 +75,15 @@
       debug:
         msg: "1. Total Number of Routes: {{ cmd_facts|length }}"
 
-    - name: 2 - Determine if there is a Default Route
-      debug:
-        msg: "2. Is there a default route?: YES"
+    - name: Set Yes/No for Default Route
+      set_fact:
+        found_default: 'Yes'
         when: "({{ item['NETWORK'] }} == find_network and {{ item['MASK'] }} == find_mask)"
         with_items: "{{ cmd_facts }}"
+
+    - name: 2 - Determine if there is a Default Route
+      debug:
+        msg: "2. Is there a default route?: {{ found_default }}"
 
     - name: "3 - Determine if {{ find_network }}/{{ find_mask }} is in the routing table"
       debug:
