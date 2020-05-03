@@ -1,0 +1,66 @@
+[local]
+localhost ansible_connection=local
+
+[cisco_xe]
+# Example of pre Ansible 2.5 network_cli
+#ios-xe-mgmt.cisco.com ansible_host=ios-xe-mgmt.cisco.com port=8181 username=root password=D_Vay!_10&
+ios-xe-mgmt.cisco.com ansible_host=ios-xe-mgmt.cisco.com
+
+[local_lab]
+weddell-sw02.uwaco.com ansible_host=10.1.10.40 username=cisco password=cisco
+sw01.uwaco.com ansible_host=10.1.10.32 username=cisco password=cisco
+
+[sbx_nxos]
+# sbx-nxos-mgmt.cisco.com ansible_host=sbx-nxos-mgmt.cisco.com ansible_port=8181 username=admin password=Admin_1234!
+sbx-nxos-mgmt.cisco.com ansible_host=sbx-nxos-mgmt.cisco.com ansible_port=8181
+
+
+[one_location:children]
+cisco_xe
+local_lab
+sbx_nxos
+
+
+[local_lab:vars]
+ansible_connection=network_cli
+ansible_network_os=ios
+ansible_user=cisco
+ansible_password=cisco
+ansible_command_timeout=30
+
+
+[cisco_xe:vars]
+ansible_connection=network_cli
+ansible_network_os=ios
+ansible_user=root
+ansible_password=D_Vay!_10&
+ansible_command_timeout=30
+ansible_port=8181
+
+
+[sbx_nxos:vars]
+ansible_connection=network_cli
+ansible_network_os=nxos
+ansible_user=admin
+ansible_password=Admin_1234!
+ansible_command_timeout=30
+ansible_port=8181
+
+
+
+# CSR1000V Host : ios-xe-mgmt.cisco.com
+# SSH Port: 8181
+# NETCONF Port: 10000
+# RESTCONF Port : 9443 (HTTPS)vi
+# Credentials:
+# Username: root
+# Password: D_Vay!_10&
+
+#Nexus 9000v Host : sbx-nxos-mgmt.cisco.com
+#SSH Port: 8181
+# NETCONF Port: 10000
+# NXAPI Ports: 80 (HTTP) & 443 (HTTPS)
+# RESTCONF Port : 443 (HTTPS)
+# Credentials:
+# Username: admin
+# Password: Admin_1234!

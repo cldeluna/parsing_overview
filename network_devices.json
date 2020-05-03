@@ -1,0 +1,22 @@
+[
+    {
+        "hostname": "ios-xe-mgmt.cisco.com",
+        "username": "root",
+        "password": "D_Vay!_10&",
+        "driver": "ios",
+        "port": 8181,
+        "commands": [
+            "show ip route"
+        ]
+    },
+    {
+        "hostname": "sbx-nxos-mgmt.cisco.com",
+        "username": "admin",
+        "password": "Admin_1234!",
+        "driver": "nx-os",
+        "port": 8181,
+        "commands": [
+            "show ip route"
+        ]
+    }
+]
