@@ -77,8 +77,8 @@
     - name: 2 - Determine if there is a Default Route
       debug:
         msg: "2. Is there a default route?: YES"
-        with_items: "{{ cmd_facts }}"
         when: "({{ item['NETWORK'] }} == find_network and {{ item['MASK'] }} == find_mask)"
+        with_items: "{{ cmd_facts }}"
 
     - name: "3 - Determine if {{ find_network }}/{{ find_mask }} is in the routing table"
       debug:
