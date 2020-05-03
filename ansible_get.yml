@@ -25,6 +25,7 @@
 
 - hosts: cisco_xe
   gather_facts: False
+  connection: network_cli
 
   # Creating the vrf_list variable and seeding it with default
   vars:
