@@ -99,6 +99,10 @@
         msg: "3. Is {{ find_network }}/{{ find_mask }} in the routing table:: {{ found_prefix }}"
 
 
+    - debug:
+        msg: "{{ output.results.0.stdout[0] is search('0.0.0.0') | ternary('Default route was found!', 'No Default Route in Routing Table') }}"
+
+
 #    - name: Append new VRFS to list of VRF names
 #      set_fact:
 #        vrf_list: "{{ vrf_list }} + ['{{ item['NAME'] }}' ]"
